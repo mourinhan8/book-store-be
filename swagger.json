@@ -1,0 +1,574 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Books API document",
+    "description": "bookstores backend"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/v1",
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "apiKey",
+      "name": "x-auth-token",
+      "scheme": "",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "users",
+      "description": "API for users"
+    },
+    {
+      "name": "books",
+      "description": "API for book"
+    },
+    {
+      "name": "purchases",
+      "description": "API for purchase"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json", "multipart/form-data"],
+  "produces": ["application/json"],
+  "paths": {
+    "/books": {
+      "get": {
+        "tags": ["books"],
+        "summary": "Returns all active books",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "A list of books.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/book"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["books"],
+        "summary": "Creates a new book",
+        "consumes": "application/json",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Book object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": ["title", "author", "coverImg", "price", "stock"],
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "author": {
+                  "type": "string",
+                  "example": "F. Scott Fitzgerald"
+                },
+                "coverImg": {
+                  "type": "string",
+                  "example": "https://images-na.ssl-images-amazon.com/images/I/51Ga5GuElyL._AC_SX184_.jpg"
+                },
+                "stock": {
+                  "type": "integer",
+                  "example": 10
+                },
+                "price": {
+                  "type": "float",
+                  "example": "10.5"
+                },
+                "tag": {
+                  "type": "string",
+                  "example": "fiction,non-fiction,science,essay"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book created",
+            "schema": {
+              "$ref": "#/definitions/book"
+            }
+          }
+        }
+      }
+    },
+    "/books/{id}": {
+      "get": {
+        "tags": ["books"],
+        "summary": "Returns a book by id",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of book to return",
+            "required": true,
+            "type": "string",
+            "example": "661126d782b06fea052628f6"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A book.",
+            "schema": {
+              "$ref": "#/definitions/book"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["books"],
+        "summary": "Updates a book in the store with form data",
+        "consumes": "application/json",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of book to return",
+            "required": true,
+            "type": "string",
+            "example": "661126d782b06fea052628f6"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Book object that needs to be updated in the store",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": ["title", "author", "coverImg", "price", "stock"],
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "author": {
+                  "type": "string",
+                  "example": "F. Scott Fitzgerald"
+                },
+                "coverImg": {
+                  "type": "string",
+                  "example": "https://images-na.ssl-images-amazon.com/images/I/51Ga5GuElyL._AC_SX184_.jpg"
+                },
+                "stock": {
+                  "type": "integer",
+                  "example": 10
+                },
+                "price": {
+                  "type": "float",
+                  "example": "10.5"
+                },
+                "tag": {
+                  "type": "string",
+                  "example": "fiction,non-fiction,science,essay"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book updated",
+            "schema": {
+              "$ref": "#/definitions/book"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["books"],
+        "summary": "Deletes a book",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of book to return",
+            "required": true,
+            "type": "string",
+            "example": "661126d782b06fea052628f6"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted the book"
+          }
+        }
+      }
+    },
+    "/users/register": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Create a new user",
+        "consumes": "application/json",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "user creation object",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": ["name", "email", "password"],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "F. Scott Fitzgerald"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "email@email.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "string"
+                }
+              }
+            }
+          },
+          {
+            "name": "admin-signup-key",
+            "in": "header",
+            "description": "admin signup key",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string",
+                  "example": "jwt token"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Login",
+        "consumes": "application/json",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "user login object",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": ["email", "password"],
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "email@email.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "string123"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string",
+                  "example": "jwt token"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/profile": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Returns user profile",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "User profile",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        }
+      }
+    },
+    "/users/secret": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Check token",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/purchases": {
+      "get": {
+        "tags": ["purchases"],
+        "summary": "Get list purchases of user",
+        "responses": {
+          "200": {
+            "description": "A list of purchase.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/purchase"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["purchases"],
+        "summary": "Create purchase",
+        "consumes": "application/json",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "create purchase object",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "books": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["id", "quantity"],
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "661166d67d375bc357d83948"
+                      },
+                      "quantity": {
+                        "type": "integer",
+                        "example": 2
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Purchase created",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          }
+        }
+      }
+    },
+    "/purchases/{id}": {
+      "get": {
+        "tags": ["purchases"],
+        "summary": "Get purchase of user by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID purchase",
+            "required": true,
+            "type": "string",
+            "example": "661126d782b06fea052628f6"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A purchase.",
+            "schema": {
+              "$ref": "#/definitions/purchase"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["purchases"],
+        "summary": "Cancel a purchase",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID purchase",
+            "required": true,
+            "type": "string",
+            "example": "661126d782b06fea052628f6"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted the purchase"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "book": {
+      "required": ["title", "author", "price", "coverImg"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "The Great Gatsby"
+        },
+        "author": {
+          "type": "string",
+          "example": "F. Scott Fitzgerald"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "coverImg": {
+          "type": "string",
+          "example": "https://images-na.ssl-images-amazon.com/images/I/51Ga5GuElyL._AC_SX184_.jpg"
+        },
+        "tag": {
+          "type": "string",
+          "example": "fiction,non-fiction,science,essay"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "ISO8601",
+          "example": "2024-04-06T07:18:11.404+00:00"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "ISO8601",
+          "example": "2024-04-06T07:18:11.404+00:00"
+        }
+      }
+    },
+    "books": {
+      "$ref": "#/definitions/book"
+    },
+    "user": {
+      "required": ["name", "email", "password", "role"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "F. Scott Fitzgerald"
+        },
+        "email": {
+          "type": "string",
+          "example": "email@email.com"
+        },
+        "point": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "role": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "ISO8601",
+          "example": "2024-04-06T07:18:11.404+00:00"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "ISO8601",
+          "example": "2024-04-06T07:18:11.404+00:00"
+        }
+      }
+    },
+    "users": {
+      "$ref": "#/definitions/user"
+    },
+    "purchase": {
+      "required": ["user", "books", "totalValue", "role"],
+      "properties": {
+        "user": {
+          "type": "string",
+          "example": "661126d782b06fea052628f6"
+        },
+        "books": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "661126d782b06fea052628f6"
+                  },
+                  "title": {
+                    "type": "string",
+                    "example": "book2"
+                  },
+                  "author": {
+                    "type": "string",
+                    "example": "F. Scott Fitzgerald"
+                  }
+                }
+              },
+              "quantity": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "price": {
+                "type": "float",
+                "example": "10.5"
+              }
+            }
+          }
+        },
+        "status": {
+          "type": "integer",
+          "example": "1"
+        },
+        "totalValue": {
+          "type": "float",
+          "example": "50.6"
+        }
+      }
+    },
+    "purchases": {
+      "$ref": "#/definitions/purchase"
+    }
+  }
+}
