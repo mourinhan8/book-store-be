@@ -1,5 +1,5 @@
 {
-  "mongoURI": "mongodb://localhost:27017/bookstore",
+  "mongoURI": "mongodb+srv://nhansunday:lUD4XfZxCkglu1ww@cluster0.j04o2sl.mongodb.net/bookstore?retryWrites=true&w=majority",
   "jwtSecret": "bookstoreapi",
   "admin-signup-key": "admin-book"
 }
