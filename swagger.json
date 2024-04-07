@@ -5,7 +5,7 @@
     "title": "Books API document",
     "description": "bookstores backend"
   },
-  "host": "https://book-store-be-0sw1.onrender.com",
+  "host": "book-store-be-0sw1.onrender.com",
   "basePath": "/api/v1",
   "securityDefinitions": {
     "bearerAuth": {
@@ -34,7 +34,7 @@
       "description": "API for purchase"
     }
   ],
-  "schemes": ["http"],
+  "schemes": ["http", "https"],
   "consumes": ["application/json", "multipart/form-data"],
   "produces": ["application/json"],
   "paths": {
