@@ -3,10 +3,11 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
-const config = require('config');
-
 const User = require('../../models/User');
 const auth = require('../../middleware/auth');
+
+const jwt_secret = process.env.JWT_SECRET;
+const admin_signup_key = process.env.ADMIN_SIGNUP_KEY
 
 // @route    POST api/users
 // @desc     Register user
@@ -47,7 +48,7 @@ router.post(
       // check if it is a Admin signup
       if (req.header('admin-signup-key')) {
         // check adminSignupKey
-        if (req.header('admin-signup-key') === config.get('admin-signup-key')) {
+        if (req.header('admin-signup-key') === admin_signup_key) {
           role = 1; // for admin, role is 1
         }
       }
@@ -70,7 +71,7 @@ router.post(
 
       jwt.sign(
         payload,
-        config.get('jwtSecret'),
+        jwt_secret,
         { expiresIn: 3600 },
         (err, token) => {
           if (err) throw err;
@@ -126,7 +127,7 @@ router.post(
 
       jwt.sign(
         payload,
-        config.get('jwtSecret'),
+        jwt_secret,
         { expiresIn: 360000 },
         (err, token) => {
           if (err) throw err;
