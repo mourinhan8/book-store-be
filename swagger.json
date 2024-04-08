@@ -1,37 +1,4 @@
 {
-  "swagger": "2.0",
-  "info": {
-    "version": "1.0.0",
-    "title": "Books API document",
-    "description": "bookstores backend"
-  },
-  "host": "book-store-be-0sw1.onrender.com",
-  "basePath": "/api/v1",
-  "securityDefinitions": {
-    "bearerAuth": {
-      "type": "apiKey",
-      "name": "x-auth-token",
-      "scheme": "",
-      "in": "header"
-    }
-  },
-  "tags": [
-    {
-      "name": "users",
-      "description": "API for users"
-    },
-    {
-      "name": "books",
-      "description": "API for book"
-    },
-    {
-      "name": "purchases",
-      "description": "API for purchase"
-    }
-  ],
-  "schemes": ["http", "https"],
-  "consumes": ["application/json", "multipart/form-data"],
-  "produces": ["application/json"],
   "paths": {
     "/books": {
       "get": {
