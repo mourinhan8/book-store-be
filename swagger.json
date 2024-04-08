@@ -15,11 +15,6 @@
       "in": "header"
     }
   },
-  "security": [
-    {
-      "bearerAuth": []
-    }
-  ],
   "tags": [
     {
       "name": "users",
@@ -60,6 +55,11 @@
         "summary": "Creates a new book",
         "consumes": "application/json",
         "produces": "application/json",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "body",
@@ -137,6 +137,11 @@
         "summary": "Updates a book in the store with form data",
         "consumes": "application/json",
         "produces": "application/json",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -196,6 +201,11 @@
         "tags": ["books"],
         "summary": "Deletes a book",
         "produces": ["application/json"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -317,6 +327,11 @@
         "tags": ["users"],
         "summary": "Returns user profile",
         "produces": ["application/json"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "User profile",
@@ -331,6 +346,11 @@
       "get": {
         "tags": ["users"],
         "summary": "Check token",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success"
@@ -342,6 +362,11 @@
       "get": {
         "tags": ["purchases"],
         "summary": "Get list purchases of user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "A list of purchase.",
@@ -359,6 +384,11 @@
         "summary": "Create purchase",
         "consumes": "application/json",
         "produces": "application/json",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "in": "body",
@@ -403,6 +433,11 @@
       "get": {
         "tags": ["purchases"],
         "summary": "Get purchase of user by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -426,6 +461,11 @@
         "tags": ["purchases"],
         "summary": "Cancel a purchase",
         "produces": ["application/json"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
