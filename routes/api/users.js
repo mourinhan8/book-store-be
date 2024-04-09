@@ -61,11 +61,11 @@ router.post(
         point
       });
 
-      await user.save();
+      const newUser = await user.save();
       const payload = {
         user: {
           id: user.id,
-          role: user.role
+          role: user.role,
         }
       };
 
@@ -75,7 +75,17 @@ router.post(
         { expiresIn: 3600 },
         (err, token) => {
           if (err) throw err;
-          res.status(201).json({ token });
+          res.status(201).json({ 
+            token,
+            profile: {
+              name,
+              email,
+              role,
+              point,
+              createdAt: newUser.createdAt,
+              updatedAt: newUser.updatedAt
+            }
+          });
         }
       );
     } catch (err) {
@@ -103,7 +113,7 @@ router.post(
     const { email, password } = req.body;
 
     try {
-      let user = await User.findOne({ email });
+      const user = await User.findOne({ email }).lean();
 
       if (!user) {
         return res
@@ -120,7 +130,7 @@ router.post(
       }
       const payload = {
         user: {
-          id: user.id,
+          id: user._id,
           role: user.role
         }
       };
@@ -131,7 +141,17 @@ router.post(
         { expiresIn: 360000 },
         (err, token) => {
           if (err) throw err;
-          res.status(200).json({ token });
+          res.status(200).json({ 
+            token,
+            profile: {
+              name: user.name,
+              email,
+              role: user.role,
+              point: user.point,
+              createdAt: user.createdAt,
+              updatedAt: user.updatedAt
+            }
+          });
         }
       );
     } catch (err) {

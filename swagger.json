@@ -258,6 +258,9 @@
                 "token": {
                   "type": "string",
                   "example": "jwt token"
+                },
+                "user": {
+                  "$ref": "#/definitions/user"
                 }
               }
             }
@@ -302,6 +305,9 @@
                 "token": {
                   "type": "string",
                   "example": "jwt token"
+                },
+                "user": {
+                  "$ref": "#/definitions/user"
                 }
               }
             }
