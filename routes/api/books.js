@@ -10,7 +10,34 @@ const User = require('../../models/User');
 // @access Public
 router.get('/', async (req, res) => {
   try {
-    const books = await Book.find({ stock: { $gt: 0 }, status: { $ne: 0 } }).lean();
+    const { page, limit, search } = req.query;
+
+    const query = { 
+      stock: { $gt: 0 }, status: { $ne: 0 } 
+    }
+
+    if (search) {
+      query.$text = { $search: `\"${search}\"` };
+    }
+
+    let pageSize = 10;
+    if (!limit) {
+      pageSize = 10;
+    } else {
+      pageSize = +limit;
+    }
+    if (Number(limit) > 20) {
+      pageSize = 20;
+    }
+    let offset = 1;
+    if (!page) {
+      offset = 1;
+    } else {
+      offset = +page;
+    }
+    const skip = (offset - 1) * pageSize;
+
+    const books = await Book.find(query).skip(skip).limit(pageSize).lean();
     res.status(200).json(books);
   } catch (err) {
     console.log(err.message);

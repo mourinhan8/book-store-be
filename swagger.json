@@ -5,6 +5,26 @@
         "tags": ["books"],
         "summary": "Returns all active books",
         "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer",
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer",
+            "description": "Limit of page"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "type": "string",
+            "description": "Search by title"
+          }
+        ],
         "responses": {
           "200": {
             "description": "A list of books.",
