@@ -77,7 +77,13 @@ router.get('/:purchaseId', auth, async (req, res) => {
 router.post(
   '/',
   auth,
-  [check('books', 'Book list must be array').isArray()],
+  [
+    check('books', 'Book list must be array').isArray(),
+    check('email', 'Please include a valid email').isEmail(),
+    check('fullName', 'Full name is required').notEmpty(),
+    check('phoneNumber', 'Phone number is required').notEmpty(),
+    check('address', 'Address is required').notEmpty(),
+  ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -93,7 +99,7 @@ router.post(
     }
 
     const books = req.body.books;
-    console.log(books)
+    const { email, fullName, phoneNumber, address, note } = req.body;
     if (books.length === 0) {
       return res.status(400).json({
         errors: [{ message: "Books can't be empty" }]
@@ -101,7 +107,6 @@ router.post(
     }
     let totalValue = 0;
     let booksData = [];
-    const userPoint = user.point;
 
     const session = await mongoose.startSession();
     session.startTransaction();
@@ -136,14 +141,19 @@ router.post(
       }
       // sub user point
       await user.updateOne({
-        $set: {
-          point: userPoint - totalValue
+        $inc: {
+          point: -totalValue
         }
       }, {
         session
       })
       const newPurchase = new Purchase({
         user: req.user.id,
+        email,
+        fullName,
+        phoneNumber,
+        address,
+        note,
         books: booksData,
         totalValue
       });

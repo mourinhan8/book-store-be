@@ -73,7 +73,7 @@ app.use(`${BASE_URL}/users`, require("./routes/api/users"));
 app.use(`${BASE_URL}/books`, require("./routes/api/books"));
 app.use(`${BASE_URL}/purchases`, require("./routes/api/purchases"));
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4040;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 

@@ -416,7 +416,7 @@
           "200": {
             "description": "Purchase created",
             "schema": {
-              "$ref": "#/definitions/user"
+              "$ref": "#/definitions/purchase"
             }
           }
         }
@@ -551,11 +551,31 @@
       "$ref": "#/definitions/user"
     },
     "purchase": {
-      "required": ["user", "books", "totalValue", "role"],
+      "required": ["user", "books", "totalValue", "role", "fullName", "email", "phoneNumber", "address"],
       "properties": {
         "user": {
           "type": "string",
           "example": "661126d782b06fea052628f6"
+        },
+        "fullName": {
+          "type": "string",
+          "example": "John Doe"
+        },
+        "email": {
+          "type": "string",
+          "example": "user@email.com"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "example": "0123456789"
+        },
+        "address": {
+          "type": "string",
+          "example": "101 MXT"
+        },
+        "note": {
+          "type": "string",
+          "example": "ship from 7 am to 11pm"
         },
         "books": {
           "type": "array",

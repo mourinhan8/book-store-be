@@ -5,6 +5,25 @@ const PurchaseSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user'
   },
+  fullName: {
+    type: String,
+    require: true
+  },
+  email: {
+    type: String,
+    require: true
+  },
+  phoneNumber: {
+    type: String,
+    require: true
+  },
+  address: {
+    type: String,
+    require: true
+  },
+  note: {
+    type: String
+  },
   books: [{
     id: {
       type: mongoose.Schema.Types.ObjectId,
